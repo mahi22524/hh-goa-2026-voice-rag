@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+datasets
+sentence-transformers
+faiss-cpu
+python-dotenv
+requests
+python-multipart

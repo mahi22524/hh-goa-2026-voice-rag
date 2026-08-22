@@ -1,0 +1,19 @@
+# Root Gitignore
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+.env
+dist/
+.system_generated/
+
+# Backend Data
+backend/data/dev.index
+backend/data/dev_metadata.json
+backend/data/retrieval_benchmark.json
+backend/data/audio_uploads/
+tmp/
+*.webm
+*.wav
+*.mp3
