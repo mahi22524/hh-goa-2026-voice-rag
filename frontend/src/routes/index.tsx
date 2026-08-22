@@ -144,7 +144,10 @@ function Index() {
                       <span className="font-sans font-light text-[#253F40] ml-1">AI Listens</span>
                       <span className="text-[#E58B42] font-extrabold ml-[3px]">.</span>
                     </h2>
-                    <p className="text-xs text-[#253F40]/75 mt-2 tracking-wide font-medium">
+                    <p className="text-sm font-medium text-[#174F50]/90 mt-2.5">
+                      A multilingual, voice-enabled AI system
+                    </p>
+                    <p className="text-xs text-[#253F40]/75 mt-1.5 tracking-wide font-medium">
                       Ask anything in your language. Get grounded answers.
                     </p>
 

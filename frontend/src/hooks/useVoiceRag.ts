@@ -5,6 +5,36 @@ import type { RagResponse, VoiceState } from "@/types/rag";
 
 export type BackendStatus = "checking" | "online" | "offline";
 
+function playRecordingStartBeep() {
+  try {
+    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioContextClass) return;
+    const ctx = new AudioContextClass();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    const now = ctx.currentTime;
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(800, now);
+
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(0.06, now + 0.005);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+
+    osc.start(now);
+    osc.stop(now + 0.15);
+
+    setTimeout(() => {
+      ctx.close().catch(() => { });
+    }, 200);
+  } catch (err) {
+    console.warn("Failed to play start recording beep:", err);
+  }
+}
+
 export function useVoiceRag() {
   const [state, setState] = useState<VoiceState>("idle");
   const [error, setError] = useState<string | null>(null);
@@ -103,6 +133,7 @@ export function useVoiceRag() {
         void run(() => postVoice(audio, selectedLanguage === "auto" ? undefined : selectedLanguage));
       };
       recorder.start();
+      playRecordingStartBeep();
       recorderRef.current = recorder;
       setState("recording");
     } catch {
